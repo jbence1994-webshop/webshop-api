@@ -70,6 +70,21 @@ CREATE TABLE IF NOT EXISTS addresses
             ON UPDATE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS wishlist
+(
+    product_id BIGINT NOT NULL,
+    profile_id BIGINT NOT NULL,
+    PRIMARY KEY (product_id, profile_id),
+    CONSTRAINT fk_wishlist_products
+        FOREIGN KEY (product_id) REFERENCES products (id)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE,
+    CONSTRAINT fk_wishlist_profiles
+        FOREIGN KEY (profile_id) REFERENCES profiles (user_id)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE
+);
+
 CREATE TABLE IF NOT EXISTS orders
 (
     id                    BIGINT         NOT NULL PRIMARY KEY AUTO_INCREMENT,
