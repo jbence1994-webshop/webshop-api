@@ -1,0 +1,45 @@
+services:
+  database:
+    image: mysql
+    container_name: webshop_database
+    restart: always
+    environment:
+      MYSQL_DATABASE: webshop
+      MYSQL_ROOT_PASSWORD: 12345
+    volumes:
+      - database:/var/lib/mysql
+    networks:
+      - webshop_network
+
+  backend:
+    build:
+      context: ./
+    container_name: webshop_backend
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database
+    networks:
+      - webshop_network
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: webshop_phpmyadmin
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      - PMA_HOST=database
+    depends_on:
+      - database
+    networks:
+      - webshop_network
+
+networks:
+  webshop_network:
+    driver: bridge
+
+volumes:
+  database:
+    name: webshop_database
