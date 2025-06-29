@@ -25,6 +25,7 @@ import static org.hamcrest.Matchers.nullValue;
 
 public class CartTests {
     private final Cart cart = cartWithTwoItems();
+    private final Cart cartWithAppliedCoupon = cartWithTwoItemsAndFixedAmountTypeOfAppliedCoupon();
     private final Cart emptyCart = emptyCart();
 
     private static Stream<Arguments> cartEmptyCheckParams() {
@@ -46,22 +47,22 @@ public class CartTests {
                 Arguments.of(
                         "Without applied coupon",
                         cartWithTwoItems(),
-                        Price.withDefaultShipping(BigDecimal.valueOf(139.98), BigDecimal.ZERO)
+                        Price.withShippingCost(BigDecimal.valueOf(139.98), BigDecimal.ZERO)
                 ),
                 Arguments.of(
                         "With fixed amount type of applied coupon",
                         cartWithTwoItemsAndFixedAmountTypeOfAppliedCoupon(),
-                        Price.withDefaultShipping(BigDecimal.valueOf(124.98), BigDecimal.valueOf(15.00))
+                        Price.withShippingCost(BigDecimal.valueOf(124.98), BigDecimal.valueOf(15.00))
                 ),
                 Arguments.of(
                         "With percent off type of applied coupon",
                         cartWithTwoItemsAndPercentOffTypeOfAppliedCoupon(),
-                        Price.withDefaultShipping(BigDecimal.valueOf(125.99), BigDecimal.valueOf(13.99))
+                        Price.withShippingCost(BigDecimal.valueOf(125.99), BigDecimal.valueOf(13.99))
                 ),
                 Arguments.of(
                         "With free shipping type of applied coupon",
                         cartWithTwoItemsAndFreeShippingTypeOfAppliedCoupon(),
-                        Price.withFreeShipping(BigDecimal.valueOf(139.98), BigDecimal.ZERO)
+                        Price.withFreeShipping(BigDecimal.valueOf(139.98))
                 )
         );
     }
@@ -138,9 +139,10 @@ public class CartTests {
 
     @Test
     public void clearTest_HappyPath_CartIsEmpty() {
-        cart.clear();
+        cartWithAppliedCoupon.clear();
 
-        assertThat(cart.getItems(), is(empty()));
+        assertThat(cartWithAppliedCoupon.getItems(), is(empty()));
+        assertThat(cartWithAppliedCoupon.getAppliedCoupon(), is(nullValue()));
     }
 
     @ParameterizedTest(name = "{index} => {0}")

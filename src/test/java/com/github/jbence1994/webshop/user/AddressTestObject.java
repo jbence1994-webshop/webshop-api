@@ -10,16 +10,24 @@ import static com.github.jbence1994.webshop.user.AddressTestConstants.PROVINCE;
 
 public final class AddressTestObject {
     public static Address address() {
+        return buildAddress(1L, LocalDateTime.now(), LocalDateTime.now());
+    }
+
+    public static Address addressAfterMappingFromDto() {
+        return buildAddress(null, null, null);
+    }
+
+    private static Address buildAddress(Long profileId, LocalDateTime createdAt, LocalDateTime updatedAt) {
         return new Address(
-                1L,
+                profileId,
                 null,
                 ADDRESS_LINE,
                 MUNICIPALITY,
                 PROVINCE,
                 POSTAL_CODE,
                 COUNTRY,
-                LocalDateTime.now(),
-                LocalDateTime.now()
+                createdAt,
+                updatedAt
         );
     }
 }

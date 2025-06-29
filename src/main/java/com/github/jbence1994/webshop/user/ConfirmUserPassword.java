@@ -10,10 +10,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Documented
-@Constraint(validatedBy = ConfirmPasswordValidator.class)
+@Constraint(validatedBy = ConfirmUserPasswordValidator.class)
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ConfirmPassword {
+public @interface ConfirmUserPassword {
     String message() default "Confirm password does not match the password.";
 
     Class<?>[] groups() default {};

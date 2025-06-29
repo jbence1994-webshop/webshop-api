@@ -1,6 +1,7 @@
 package com.github.jbence1994.webshop.cart;
 
 import com.github.jbence1994.webshop.coupon.Coupon;
+import com.github.jbence1994.webshop.coupon.DiscountType;
 import com.github.jbence1994.webshop.order.OrderItem;
 import com.github.jbence1994.webshop.product.Product;
 import jakarta.persistence.CascadeType;
@@ -90,6 +91,7 @@ public class Cart {
     }
 
     public void clear() {
+        appliedCoupon = null;
         items.clear();
     }
 
@@ -103,7 +105,11 @@ public class Cart {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         if (!hasCouponApplied()) {
-            return Price.withDefaultShipping(totalPrice, BigDecimal.ZERO);
+            return Price.withShippingCost(totalPrice);
+        }
+
+        if (DiscountType.FREE_SHIPPING.equals(appliedCoupon.getType())) {
+            return Price.withFreeShipping(totalPrice);
         }
 
         return PriceAdjustmentStrategyFactory

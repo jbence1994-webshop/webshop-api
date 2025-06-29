@@ -5,7 +5,7 @@ import org.springframework.validation.ObjectError;
 public final class ObjectErrorTestObject {
     public static ObjectError objectError1() {
         return new ObjectError(
-                "registerUserRequest",
+                "registrationRequest",
                 "Confirm password does not match the password."
         );
     }

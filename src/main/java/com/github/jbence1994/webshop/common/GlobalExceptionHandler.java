@@ -7,8 +7,8 @@ import com.github.jbence1994.webshop.image.InvalidFileExtensionException;
 import com.github.jbence1994.webshop.product.ProductNotFoundException;
 import com.github.jbence1994.webshop.user.ChangePasswordRequest;
 import com.github.jbence1994.webshop.user.ConfirmNewPassword;
-import com.github.jbence1994.webshop.user.ConfirmPassword;
-import com.github.jbence1994.webshop.user.RegisterUserRequest;
+import com.github.jbence1994.webshop.user.ConfirmUserPassword;
+import com.github.jbence1994.webshop.user.RegistrationRequest;
 import com.github.jbence1994.webshop.user.UserNotFoundException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
@@ -95,11 +95,11 @@ public class GlobalExceptionHandler {
                 validationErrors.add(new ValidationErrorDto(error.getField(), error.getDefaultMessage()))
         );
 
-        var confirmPasswordDefaultMessage = RegisterUserRequest.class.getAnnotation(ConfirmPassword.class).message();
+        var confirmPasswordDefaultMessage = RegistrationRequest.class.getAnnotation(ConfirmUserPassword.class).message();
         var confirmNewPasswordDefaultMessage = ChangePasswordRequest.class.getAnnotation(ConfirmNewPassword.class).message();
 
         exception.getBindingResult().getAllErrors().forEach(error -> {
-            addIfMatches(validationErrors, error, "confirmPassword", confirmPasswordDefaultMessage);
+            addIfMatches(validationErrors, error, "user.confirmPassword", confirmPasswordDefaultMessage);
             addIfMatches(validationErrors, error, "confirmNewPassword", confirmNewPasswordDefaultMessage);
         });
 

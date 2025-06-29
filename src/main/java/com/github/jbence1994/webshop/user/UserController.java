@@ -27,14 +27,26 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDto> registerUser(@Valid @RequestBody RegisterUserRequest request) {
-        var user = userMapper.toEntity(request);
+    public ResponseEntity<RegistrationResponse> registerUser(@Valid @RequestBody RegistrationRequest request) {
+        var address = userMapper.toEntity(request.getAddress());
+        var profile = userMapper.toEntity(request.getProfile());
+        var user = userMapper.toEntity(request.getUser());
+
+        address.setProfile(profile);
+        profile.setAddress(address);
+
+        profile.setUser(user);
+        user.setProfile(profile);
 
         var registeredUser = userService.registerUser(user);
 
-        var userDto = userMapper.toDto(registeredUser);
+        var response = new RegistrationResponse(
+                registeredUser.getId(),
+                registeredUser.getEmail(),
+                "Successful registration."
+        );
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(userDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PostMapping("/{userId}")

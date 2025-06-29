@@ -56,6 +56,10 @@ public class User {
     @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
     private Set<Coupon> coupons = new HashSet<>();
 
+    public String getPhoneNumber() {
+        return profile.getPhoneNumber();
+    }
+
     public void setProfileAvatar(String fileName) {
         profile.setAvatarFileName(fileName);
     }

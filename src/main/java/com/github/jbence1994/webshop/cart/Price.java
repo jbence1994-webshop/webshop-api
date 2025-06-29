@@ -13,11 +13,15 @@ public class Price {
     private BigDecimal discountAmount;
     private BigDecimal shippingCost;
 
-    public static Price withDefaultShipping(BigDecimal total, BigDecimal discount) {
-        return new Price(total, discount, BigDecimal.valueOf(20.00));
+    public static Price withShippingCost(BigDecimal totalPrice) {
+        return new Price(totalPrice, BigDecimal.ZERO, BigDecimal.valueOf(20.00));
     }
 
-    public static Price withFreeShipping(BigDecimal total, BigDecimal discount) {
-        return new Price(total, discount, BigDecimal.ZERO);
+    public static Price withShippingCost(BigDecimal totalPrice, BigDecimal discountAmount) {
+        return new Price(totalPrice, discountAmount, BigDecimal.valueOf(20.00));
+    }
+
+    public static Price withFreeShipping(BigDecimal totalPrice) {
+        return new Price(totalPrice, BigDecimal.ZERO, BigDecimal.ZERO);
     }
 }

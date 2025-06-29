@@ -8,6 +8,6 @@ public class FixedAmountPriceAdjustmentStrategy implements PriceAdjustmentStrate
     public Price adjustPrice(BigDecimal totalPrice, BigDecimal discountValue) {
         var discountedTotalPrice = totalPrice.subtract(discountValue);
 
-        return Price.withDefaultShipping(discountedTotalPrice, discountValue);
+        return Price.withShippingCost(discountedTotalPrice, discountValue);
     }
 }

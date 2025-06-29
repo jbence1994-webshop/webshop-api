@@ -28,6 +28,13 @@ public class UserTests {
     }
 
     @Test
+    public void getPhoneNumberTest() {
+        var result = user1.getPhoneNumber();
+
+        assertThat(result, equalTo("+36501323566"));
+    }
+
+    @Test
     public void setProfileAvatarTest() {
         user1.setProfileAvatar(AVATAR_FILE_NAME);
 

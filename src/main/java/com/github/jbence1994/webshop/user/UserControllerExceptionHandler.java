@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice(basePackageClasses = UserController.class)
 public class UserControllerExceptionHandler {
 
-    @ExceptionHandler(exception = EmailAlreadyExistsException.class)
-    public ResponseEntity<ErrorDto> handleEmailAlreadyExistsException(EmailAlreadyExistsException exception) {
+    @ExceptionHandler(exception = {
+            EmailAlreadyExistsException.class,
+            PhoneNumberAlreadyExistsException.class,
+    })
+    public ResponseEntity<ErrorDto> handleEmailOrPhoneNumberAlreadyExistsException(RuntimeException exception) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorDto(exception.getMessage()));
     }
 }

@@ -48,7 +48,7 @@ public class GlobalExceptionHandlerTests {
 
     private static Stream<Arguments> objectErrorParams() {
         return Stream.of(
-                Arguments.of("ConfirmPassword", objectError1(), "confirmPassword", "Confirm password does not match the password."),
+                Arguments.of("ConfirmPassword", objectError1(), "user.confirmPassword", "Confirm password does not match the password."),
                 Arguments.of("ConfirmNewPassword", objectError2(), "confirmNewPassword", "Confirm new password does not match the new password.")
         );
     }

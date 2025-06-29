@@ -47,13 +47,13 @@ public class OrderTests {
     public void calculateLoyaltyPointsTest(
             String testCase,
             BigDecimal totalPrice,
-            int loyaltyPoints
+            int expectedLoyaltyPoints
     ) {
         var order = new Order();
         order.setTotalPrice(totalPrice);
 
         var result = order.calculateLoyaltyPoints();
 
-        assertThat(result, equalTo(loyaltyPoints));
+        assertThat(result, equalTo(expectedLoyaltyPoints));
     }
 }

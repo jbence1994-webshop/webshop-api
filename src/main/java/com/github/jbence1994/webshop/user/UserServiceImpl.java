@@ -14,12 +14,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public User registerUser(User user) {
         var email = user.getEmail();
+        var phoneNumber = user.getPhoneNumber();
 
         if (userRepository.existsByEmail(email)) {
             throw new EmailAlreadyExistsException(email);
         }
 
+        if (userRepository.existsByProfilePhoneNumber(phoneNumber)) {
+            throw new PhoneNumberAlreadyExistsException(phoneNumber);
+        }
+
         user.setPassword(passwordManager.encode(user.getPassword()));
+        user.setRole(Role.USER);
         userRepository.save(user);
 
         return user;

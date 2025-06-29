@@ -52,7 +52,7 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-    private int earnedLoyaltyPoints;
+    private int loyaltyPoints;
 
     @Column(insertable = false, updatable = false)
     @GeneratedColumn("created_at")

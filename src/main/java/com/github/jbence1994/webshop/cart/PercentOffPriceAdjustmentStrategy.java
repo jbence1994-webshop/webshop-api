@@ -13,6 +13,6 @@ public class PercentOffPriceAdjustmentStrategy implements PriceAdjustmentStrateg
         var discountedTotalPrice = totalPrice.subtract(discount);
         var discountAmount = totalPrice.subtract(discountedTotalPrice);
 
-        return Price.withDefaultShipping(discountedTotalPrice, discountAmount);
+        return Price.withShippingCost(discountedTotalPrice, discountAmount);
     }
 }
