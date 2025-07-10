@@ -34,7 +34,7 @@
         <!-- Maven plugin versions -->
         <properties-maven-plugin.version>1.2.1</properties-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
-        <flyway-maven-plugin.version>11.10.1</flyway-maven-plugin.version>
+        <flyway-maven-plugin.version>11.10.2</flyway-maven-plugin.version>
 
         <!-- JaCoCo properties -->
         <jacoco.line-coverage>0.98</jacoco.line-coverage>
